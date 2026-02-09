@@ -1,12 +1,13 @@
 {
   "name": "to_do-list",
   "version": "1.0.0",
-  "description": "",
+  "description": "To-do list backend API with JWT auth, validation, and collaboration features.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed": "node utils/seed.js"
   },
   "keywords": [],
   "author": "",

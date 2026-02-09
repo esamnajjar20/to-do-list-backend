@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Password is required'],
       minlength: [6, 'Password must be at least 6 characters'],
-      select: false 
+      select: false
     },
     role: {
       type: String,
@@ -34,11 +34,11 @@ const userSchema = new mongoose.Schema(
       default: false
     }
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
 userSchema.pre('save', async function () {
-  if (!this.isModified('password')) return; // ← لا حاجة لـ next
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
 });
@@ -47,7 +47,10 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// دالة لإنشاء JWT Token
+/**
+ * Generate a signed JWT for this user.
+ * @returns {string}
+ */
 userSchema.methods.getSignedToken = function () {
   return jwt.sign(
     { id: this._id, role: this.role },
